@@ -1,0 +1,140 @@
+---
+import { useTranslations } from "../i18n/utils";
+
+export interface Props {
+  lang: "es" | "en";
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const skills = {
+  frontend: ["React", "TypeScript", "JavaScript", "Astro", "Tailwind CSS"],
+  backend: ["Python", "Node.js", "Flask", "RESTful APIs", "PostgreSQL"],
+  tools: ["Git", "Bash", "Postman", "Jest", "Vercel", "Figma"],
+};
+---
+
+<section id="about" class="about-section">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="about-title">{t("about.title")}</h2>
+      <div class="about-divider"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <!-- About content -->
+      <div class="space-y-6">
+        <p class="about-description">{t("about.description")}</p>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-6 mt-8">
+          <div class="about-stat">
+            <div class="about-stat-number text-primary-500">3+</div>
+            <div class="about-stat-label">{t("about.experience")}</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-number text-accent-500">50+</div>
+            <div class="about-stat-label">{t("about.projects")}</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-number text-primary-500">15+</div>
+            <div class="about-stat-label">{t("about.technologies")}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="space-y-8">
+        <!-- Frontend Skills -->
+        <div>
+          <h3 class="skill-heading">
+            <svg class="skill-icon text-primary-500" ...>...</svg>
+            {t("skills.frontend")}
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {
+              skills.frontend.map((skill) => (
+                <span class="skill-badge skill-frontend">{skill}</span>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Backend Skills -->
+        <div>
+          <h3 class="skill-heading">
+            <svg class="skill-icon text-accent-500" ...>...</svg>
+            {t("skills.backend")}
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {
+              skills.backend.map((skill) => (
+                <span class="skill-badge skill-backend">{skill}</span>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Tools -->
+        <div>
+          <h3 class="skill-heading">
+            <svg class="skill-icon text-primary-500" ...>...</svg>
+            {t("skills.tools")}
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {
+              skills.tools.map((skill) => (
+                <span class="skill-badge skill-tools">{skill}</span>
+              ))
+            }
+          </div>
+        </div>
+        <!-- 🌍 Languages -->
+        <div>
+          <h3 class="skill-heading">
+            <svg class="skill-icon invisible w-5 h-5"></svg>
+            <!-- hidden icon space to align heading -->
+            {t("skills.languages")}
+          </h3>
+
+          <div class="space-y-2 mt-2 pl-1">
+            <!-- Spanish -->
+            <div class="grid grid-cols-[80px_1fr] items-center">
+              <span class="font-medium text-gray-800 dark:text-white">
+                {t("skills.languages.es")}:
+              </span>
+              <div class="flex gap-1">
+                {
+                  [...Array(5)].map(() => (
+                    <span class="w-4 h-4 rounded-full bg-primary-500 border border-gray-300 dark:border-transparent" />
+                  ))
+                }
+              </div>
+            </div>
+
+            <!-- English -->
+            <div class="grid grid-cols-[80px_1fr] items-center">
+              <span class="font-medium text-gray-800 dark:text-white">
+                {t("skills.languages.en")}:
+              </span>
+              <div class="flex gap-1">
+                {
+                  [1, 2, 3, 4, 5].map((i) => (
+                    <span
+                      class={`w-4 h-4 rounded-full ${
+                        i <= 4
+                          ? "bg-primary-500"
+                          : "bg-gray-400 dark:bg-gray-600"
+                      } border border-gray-300 dark:border-transparent`}
+                    />
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

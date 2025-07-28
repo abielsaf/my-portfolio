@@ -1,0 +1,88 @@
+---
+export interface Props {
+  title: string;
+  lang?: "es" | "en";
+}
+const { title, lang = "es" } = Astro.props;
+import { ThemeScript } from "astro-theme-toggle";
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content={lang === "es"
+        ? "Portfolio de Juan Pérez - Desarrollador Full Stack especializado en React, Node.js y tecnologías modernas"
+        : "Juan Pérez Portfolio - Full Stack Developer specialized in React, Node.js and modern technologies"}
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <ThemeScript />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/src/styles/base.css" />
+    <link rel="stylesheet" href="/src/styles/utilities.css" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta
+      property="og:description"
+      content={lang === "es"
+        ? "Portfolio de Juan Pérez - Desarrollador Full Stack"
+        : "Juan Pérez Portfolio - Full Stack Developer"}
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta
+      name="twitter:description"
+      content={lang === "es"
+        ? "Portfolio de Juan Pérez - Desarrollador Full Stack"
+        : "Juan Pérez Portfolio - Full Stack Developer"}
+    />
+  </head>
+  <body class="antialiased transition-colors duration-300">
+    <div
+      id="lang-loading-overlay"
+      class="fixed inset-0 bg-white dark:bg-dark-900/90 flex items-center justify-center z-[9999] hidden transition-opacity duration-300"
+    >
+      <div
+        class="w-10 h-10 border-4 border-primary-400 border-t-transparent rounded-full animate-spin"
+      >
+      </div>
+    </div>
+    <slot />
+    <script is:inline>
+      window.addEventListener("DOMContentLoaded", () => {
+        if (sessionStorage.getItem("disableAnimations") === "true") {
+          document
+            .querySelectorAll(".animate-fade-in, .animate-slide-up")
+            .forEach((el) => {
+              el.classList.remove("animate-fade-in", "animate-slide-up");
+            });
+          sessionStorage.removeItem("disableAnimations");
+        }
+      });
+    </script>
+    <script is:inline>
+      window.addEventListener("DOMContentLoaded", () => {
+        document.body.classList.add("loaded");
+      });
+    </script>
+    <script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+  </body>
+</html>

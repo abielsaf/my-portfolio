@@ -1,0 +1,68 @@
+/* ==== Global Base Styles ==== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  @apply bg-white text-black dark:bg-dark-900 dark:text-white;
+}
+
+/* ==== Scrollbar ==== */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
+}
+
+/* ==== Animations ==== */
+
+/* Set initial state: invisible and offset */
+.animate-fade-in,
+.animate-slide-up {
+  opacity: 0;
+}
+
+/* Only trigger animations when body has class `loaded` */
+body.loaded .animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+body.loaded .animate-slide-up {
+  animation: slideUp 0.6s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

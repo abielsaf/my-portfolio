@@ -1,0 +1,93 @@
+---
+import { useTranslations } from "../i18n/utils";
+import LanguageToggle from "./LanguageToggle.astro";
+import { Toggle } from "astro-theme-toggle";
+
+export interface Props {
+  lang: "es" | "en";
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<nav class="navbar">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo -->
+      <div class="flex-shrink-0">
+        <a href="#home" class="logo">&lt;/Dev&gt;</a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:block">
+        <div class="ml-10 flex items-center space-x-8">
+          <a href="#home" class="nav-link">{t("nav.home")}</a>
+          <a href="#about" class="nav-link">{t("nav.about")}</a>
+          <a href="#projects" class="nav-link">{t("nav.projects")}</a>
+          <a href="#contact" class="nav-link">{t("nav.contact")}</a>
+        </div>
+      </div>
+
+      <!-- Theme Toggle and Language Toggle -->
+      <div class="flex items-center space-x-4">
+        <LanguageToggle />
+        <Toggle
+          style="width: 32px; height: 32px;"
+          class="cursor-pointer rounded hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
+        />
+
+        <!-- Mobile menu button -->
+        <div class="md:hidden">
+          <button
+            id="mobile-menu-button"
+            type="button"
+            class="menu-button"
+            aria-controls="mobile-menu"
+            aria-expanded="false"
+          >
+            <span class="sr-only">Abrir menú principal</span>
+            <svg
+              class="block h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Wrapper -->
+  <div id="mobile-menu-wrapper" class="mobile-menu-wrapper hidden">
+    <!-- Backdrop -->
+    <div id="mobile-backdrop" class="mobile-backdrop"></div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="mobile-menu">
+      <div class="flex flex-col items-end px-8 pt-4 space-y-4 text-right">
+        <a href="#home" class="mobile-link">{t("nav.home")}</a>
+        <a href="#about" class="mobile-link">{t("nav.about")}</a>
+        <a href="#projects" class="mobile-link">{t("nav.projects")}</a>
+        <a href="#contact" class="mobile-link">{t("nav.contact")}</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<script type="module">
+  import { initMobileMenu } from '/scripts/mobileMenu.js';
+  document.addEventListener('DOMContentLoaded', () => {
+    initMobileMenu();
+  });
+</script>

@@ -1,0 +1,89 @@
+---
+import { useTranslations } from '../i18n/utils';
+
+export interface Props {
+  lang: 'es' | 'en';
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const projects = [
+  {
+    title: 'E-commerce Platform',
+    description: lang === 'es' 
+      ? 'Plataforma de comercio electrónico completa con React, Node.js y PostgreSQL. Incluye carrito de compras, procesamiento de pagos y panel de administración.'
+      : 'Complete e-commerce platform with React, Node.js and PostgreSQL. Includes shopping cart, payment processing and admin panel.',
+    image: 'https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=600',
+    technologies: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
+    github: 'https://github.com',
+    demo: 'https://demo.com'
+  },
+  {
+    title: 'Task Management App',
+    description: lang === 'es'
+      ? 'Aplicación de gestión de tareas colaborativa con autenticación, asignación de tareas y seguimiento en tiempo real.'
+      : 'Collaborative task management application with authentication, task assignment and real-time tracking.',
+    image: 'https://images.pexels.com/photos/3194521/pexels-photo-3194521.jpeg?auto=compress&cs=tinysrgb&w=600',
+    technologies: ['Next.js', 'TypeScript', 'MongoDB', 'Socket.io'],
+    github: 'https://github.com',
+    demo: 'https://demo.com'
+  },
+  {
+    title: 'Weather Dashboard',
+    description: lang === 'es'
+      ? 'Dashboard del clima con visualización de datos en tiempo real, pronósticos y mapas interactivos usando APIs externas.'
+      : 'Weather dashboard with real-time data visualization, forecasts and interactive maps using external APIs.',
+    image: 'https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?auto=compress&cs=tinysrgb&w=600',
+    technologies: ['Vue.js', 'Chart.js', 'OpenWeather API', 'Tailwind CSS'],
+    github: 'https://github.com',
+    demo: 'https://demo.com'
+  }
+];
+---
+
+<section id="projects" class="projects-section">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="projects-heading">{t('projects.title')}</h2>
+      <div class="projects-divider"></div>
+      <p class="projects-description">{t('projects.description')}</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {projects.map((project, index) => (
+        <div class="group project-card" style={`animation-delay: ${index * 0.2}s;`} >
+          <!-- Project Image -->
+          <div class="relative overflow-hidden">
+            <img src={project.image} alt={project.title} class="project-image" />
+            <div class="project-overlay"></div>
+          </div>
+
+          <!-- Project Content -->
+          <div class="p-6">
+            <h3 class="project-title">{project.title}</h3>
+            <p class="project-description">{project.description}</p>
+
+            <!-- Technologies -->
+            <div class="flex flex-wrap gap-2 mb-6">
+              {project.technologies.map(tech => (
+                <span class="project-tech">{tech}</span>
+              ))}
+            </div>
+
+            <!-- Project Links -->
+            <div class="flex gap-3">
+              <a href={project.demo} target="_blank" rel="noopener noreferrer" class="project-demo">
+                {t('projects.view')}
+              </a>
+              <a href={project.github} target="_blank" rel="noopener noreferrer" class="project-code">
+                {t('projects.code')}
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+

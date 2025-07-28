@@ -1,0 +1,279 @@
+---
+import { useTranslations } from "../i18n/utils";
+
+export interface Props {
+  lang: "es" | "en";
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY;
+---
+
+<section id="contact" class="contact-section">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="contact-heading">{t("contact.title")}</h2>
+      <div class="contact-divider"></div>
+      <p class="contact-description">{t("contact.description")}</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <!-- Contact Info -->
+      <div class="space-y-8">
+        <!-- Email -->
+        <div class="contact-info-block">
+          <div class="contact-info-icon bg-primary-500/20">
+            <svg
+              class="w-6 h-6 text-primary-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="contact-info-title">Email</h3>
+            <p class="contact-info-text">bielsafuentes@gmail.com</p>
+          </div>
+        </div>
+
+        <!-- Location -->
+        <div class="contact-info-block">
+          <div class="contact-info-icon bg-accent-500/20">
+            <svg
+              class="w-6 h-6 text-accent-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="contact-info-title">Ubicación</h3>
+            <p class="contact-info-text">Madrid, España</p>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="pt-8">
+          <h3 class="contact-info-title mb-4">{t("contact.find")}</h3>
+          <div class="flex space-x-4">
+            <a
+              href="https://github.com/abielsaf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-button"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M12 0C5.37 0 0 5.373 0 12c0 5.303 3.438 9.8 8.205 11.385.6.113.82-.26.82-.577v-2.014C6.275 20.88 5.48 18.635 5.48 18.635c-.546-1.385-1.333-1.754-1.333-1.754-1.089-.745.084-.729.084-.729 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.776.418-1.305.762-1.605-2.665-.3-5.467-1.334-5.467-5.932 0-1.311.469-2.382 1.235-3.22-.124-.302-.535-1.523.117-3.176 0 0 1.008-.322 3.3 1.23a11.55 11.55 0 013.003-.404 11.54 11.54 0 013.003.404c2.29-1.552 3.296-1.23 3.296-1.23.653 1.653.243 2.874.12 3.176.77.838 1.234 1.909 1.234 3.22 0 4.61-2.805 5.628-5.475 5.922.43.37.823 1.102.823 2.222v3.293c0 .319.218.694.825.576C20.565 21.796 24 17.3 24 12c0-6.627-5.373-12-12-12z"
+                ></path>
+              </svg>
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/angelbielsa/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-button"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 
+               0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 
+               1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 
+               4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 
+               0-1.138.92-2.063 2.063-2.063 1.14 0 
+               2.064.925 2.064 2.063 0 1.139-.925 
+               2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 
+               0H1.771C.792 0 0 .774 0 1.729v20.542C0 
+               23.227.792 24 1.771 24h20.451C23.2 24 24 
+               23.227 24 22.271V1.729C24 .774 23.2 0 
+               22.222 0h.003z"
+                ></path>
+              </svg>
+            </a>
+
+            <a
+              href="mailto:bielsafuentes@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-button"
+            >
+              <svg
+                class="w-5 h-5"
+                viewBox="0 49.4 512 399.42"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+              >
+                <g fill-rule="nonzero">
+                  <path
+                    fill="#666666"
+                    d="M34.91 448.818h81.454V251L0 163.727V413.91c0 19.287 15.622 34.91 34.91 34.91z"
+                  ></path>
+                  <path
+                    fill="#888888"
+                    d="M395.636 448.818h81.455c19.287 0 34.909-15.622 34.909-34.909V163.727L395.636 251z"
+                  ></path>
+                  <path
+                    fill="#AAAAAA"
+                    d="M395.636 99.727V251L512 163.727v-46.545c0-43.142-49.25-67.782-83.782-41.891z"
+                  ></path>
+                </g>
+                <path
+                  fill="#999999"
+                  d="M116.364 251V99.727L256 204.455 395.636 99.727V251L256 355.727z"
+                ></path>
+                <path
+                  fill="#777777"
+                  d="M0 117.182v46.545L116.364 251V99.727L83.782 75.291C49.25 49.4 0 74.04 0 117.18z"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Contact Form -->
+    <div class="contact-form-container mt-10">
+      <form
+        id="contact-form"
+        method="POST"
+        class="space-y-6"
+        data-success-title={t("contact.modal.successTitle")}
+        data-success-text={t("contact.modal.successText")}
+        data-error-title={t("contact.modal.errorTitle")}
+        data-error-text={t("contact.modal.errorText")}
+      >
+        <input type="hidden" name="access_key" value={accessKey} />
+        <input
+          type="hidden"
+          name="subject"
+          value={lang === "es"
+            ? "Nuevo mensaje del portafolio"
+            : "New message from portfolio"}
+        />
+        <input
+          type="hidden"
+          name="from_name"
+          value={lang === "es" ? "Tu Portafolio Web" : "Your Portfolio Website"}
+        />
+        <input
+          type="checkbox"
+          name="botcheck"
+          class="hidden"
+          style="display:none;"
+        />
+
+        <div>
+          <label for="name" class="contact-label">{t("contact.name")}</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="contact-input"
+            placeholder={t("contact.placeholder.name")}
+          />
+        </div>
+
+        <div>
+          <label for="email" class="contact-label">{t("contact.email")}</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="contact-input"
+            placeholder={t("contact.placeholder.email")}
+          />
+        </div>
+
+        <div>
+          <label for="message" class="contact-label">
+            {t("contact.message")}
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            required
+            class="contact-textarea"
+            placeholder={t("contact.placeholder.message")}></textarea>
+        </div>
+
+        <button type="submit" class="contact-button">
+          {t("contact.send")}
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ✅ Feedback Modal with translation data -->
+<div
+  class="modal micromodal-slide hidden"
+  id="feedback-modal"
+  aria-hidden="true"
+  data-success-title={t("contact.modal.successTitle")}
+  data-success-message={t("contact.modal.successText")}
+  data-error-title={t("contact.modal.errorTitle")}
+  data-error-message={t("contact.modal.errorText")}
+>
+  <div
+    class="modal__overlay fixed inset-0 bg-black/50 dark:bg-black/70 flex items-center justify-center z-50"
+    tabindex="-1"
+    data-micromodal-close
+  >
+    <div
+      class="modal__container bg-white dark:bg-gray-800 rounded-2xl shadow-xl max-w-md w-full p-6 relative"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <header class="modal__header mb-4">
+        <h2
+          id="modal-title"
+          class="text-xl font-semibold text-gray-800 dark:text-white"
+        >
+          <!-- will be set dynamically -->
+        </h2>
+        <p id="modal-message" class="mt-2 text-gray-600 dark:text-gray-300">
+          <!-- will be set dynamically -->
+        </p>
+      </header>
+
+      <footer class="modal__footer text-right">
+        <button
+          class="contact-button"
+          data-micromodal-close
+          aria-label="Close modal"
+        >
+          OK
+        </button>
+      </footer>
+    </div>
+  </div>
+</div>
+
+<script src="/scripts/contactForm.js" defer></script>
