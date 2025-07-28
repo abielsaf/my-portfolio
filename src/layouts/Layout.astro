@@ -7,6 +7,7 @@ const { title, lang = "es" } = Astro.props;
 import { ThemeScript } from "astro-theme-toggle";
 import '../styles/base.css';
 import '../styles/utilities.css'
+import Analytics from '@vercel/analytics/astro';
 
 
 ---
@@ -85,5 +86,6 @@ import '../styles/utilities.css'
       });
     </script>
     <script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+    <Analytics />
   </body>
 </html>
