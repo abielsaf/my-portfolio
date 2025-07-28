@@ -5,7 +5,7 @@
 This is my personal developer portfolio, built with [Astro](https://astro.build/), [Tailwind CSS](https://tailwindcss.com/), and other modern tools.
 
 ### 🌐 Live Site
-[👉 View Portfolio](https://your-portfolio-url.com)
+[👉 View Portfolio](https://https://www.abielsa.dev/)
 
 ### ✨ Features
 - Multilingual support (Spanish / English)
@@ -30,7 +30,7 @@ Feel free to reach out via [email](mailto:bielsafuentes@gmail.com) or connect on
 Este es mi portafolio personal como desarrollador, creado con [Astro](https://astro.build/), [Tailwind CSS](https://tailwindcss.com/) y otras herramientas modernas.
 
 ### 🌐 Sitio Web
-[👉 Ver Portafolio](https://your-portfolio-url.com)
+[👉 Ver Portafolio](https://https://www.abielsa.dev/)
 
 ### ✨ Funcionalidades
 - Soporte multilenguaje (español / inglés)
