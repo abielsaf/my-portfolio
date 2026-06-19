@@ -42,6 +42,7 @@ export const translations = {
       "Algunos de los proyectos en los que he trabajado recientemente",
     "projects.view": "Ver proyecto",
     "projects.code": "Ver código",
+    "projects.wip": "Estamos trabajando en ello",
 
     // Contact Section
     "contact.title": "Contacto",
@@ -101,6 +102,7 @@ export const translations = {
     "projects.description": "Some of the projects I've worked on recently",
     "projects.view": "View project",
     "projects.code": "View code",
+    "projects.wip": "Work in progress",
 
     // Contact Section
     "contact.title": "Contact",

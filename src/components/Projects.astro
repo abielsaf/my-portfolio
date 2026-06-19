@@ -42,7 +42,11 @@ const projects = [
 ];
 ---
 
-<section id="projects" class="projects-section">
+<section id="projects" class="projects-section relative">
+  <div class="projects-wip-overlay">
+    <p class="projects-wip-text">{t('projects.wip')}</p>
+  </div>
+
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16">
       <h2 class="projects-heading">{t('projects.title')}</h2>
