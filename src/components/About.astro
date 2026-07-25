@@ -1,5 +1,6 @@
 ---
 import { useTranslations } from "../i18n/utils";
+import { mergedPRs } from "../data/contributions";
 
 export interface Props {
   lang: "es" | "en";
@@ -13,6 +14,19 @@ const skills = {
   backend: ["Python", "Node.js", "Flask", "RESTful APIs", "PostgreSQL"],
   tools: ["Git", "Bash", "Postman", "Jest", "Vercel", "Figma"],
 };
+
+// Tech shown on the project cards that isn't already in `skills` above. Keep in
+// sync with Projects.astro; counted so the stat below can't drift from the page.
+const projectOnlyTech = [
+  "Zustand",
+  "Vite",
+  "C / C++",
+  "Game server RE",
+  "TCP/UDP networking",
+];
+
+const techCount = new Set([...Object.values(skills).flat(), ...projectOnlyTech])
+  .size;
 ---
 
 <section id="about" class="about-section">
@@ -34,11 +48,11 @@ const skills = {
             <div class="about-stat-label">{t("about.experience")}</div>
           </div>
           <div class="about-stat">
-            <div class="about-stat-number text-accent-500">50+</div>
-            <div class="about-stat-label">{t("about.projects")}</div>
+            <div class="about-stat-number text-accent-500">{mergedPRs}</div>
+            <div class="about-stat-label">{t("about.merged")}</div>
           </div>
           <div class="about-stat">
-            <div class="about-stat-number text-primary-500">15+</div>
+            <div class="about-stat-number text-primary-500">{techCount}</div>
             <div class="about-stat-label">{t("about.technologies")}</div>
           </div>
         </div>

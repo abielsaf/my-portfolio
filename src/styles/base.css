@@ -1,6 +1,10 @@
 /* ==== Tailwind ==== */
 @import "tailwindcss";
 
+/* Self-hosted Inter. `wght` = weight axis only (no optical-size/italic files).
+   Fontsource ships per-subset unicode-range, so ES/EN pages fetch latin alone. */
+@import "@fontsource-variable/inter/wght.css";
+
 /* v4 resolves @apply per CSS entry point, so utilities.css is imported here
    rather than separately in Layout.astro — it needs this file's theme context. */
 @import "./utilities.css";
@@ -10,7 +14,7 @@
 
 /* Replaces tailwind.config.mjs `theme.extend` */
 @theme {
-  --font-sans: Inter, system-ui, sans-serif;
+  --font-sans: "Inter Variable", Inter, system-ui, sans-serif;
 
   --color-primary-50: #eff6ff;
   --color-primary-100: #dbeafe;
@@ -57,7 +61,7 @@ html {
 }
 
 body {
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: var(--font-sans);
   @apply bg-white text-black dark:bg-dark-900 dark:text-white;
 }
 

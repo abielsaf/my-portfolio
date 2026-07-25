@@ -1,31 +1,47 @@
 ---
-// Real contribution heatmap built from Ángel's pull requests to
-// commonwealthga/commonwealth-ga-server (opened dates, July 2026).
-// Baked in at build time — no runtime/API dependency.
-const prActivity: Record<string, number> = {
-  '2026-07-13': 1,
-  '2026-07-17': 2,
-  '2026-07-18': 3,
-  '2026-07-19': 2,
-  '2026-07-20': 3,
-  '2026-07-23': 3,
-  '2026-07-24': 2,
-};
+// Real contribution heatmap from Ángel's PRs to commonwealth-ga-server, baked in
+// at build time — no runtime/API dependency. Window and caption both derive from
+// the data, so refreshing src/data/contributions.ts is the only step needed.
+import { prActivity } from '../data/contributions';
 
-const WEEKS = 16;
 const CELL = 11;
 const GAP = 3;
 const STEP = CELL + GAP;
 
-// Anchor the window to the contribution period, using Sun–Sat weeks.
-const end = new Date(Date.UTC(2026, 6, 25)); // 2026-07-25
-end.setUTCDate(end.getUTCDate() + (6 - end.getUTCDay())); // roll to Saturday
-const start = new Date(end);
-start.setUTCDate(start.getUTCDate() - (WEEKS * 7 - 1)); // first Sunday in view
-
+const dates = Object.keys(prActivity).sort();
 const total = Object.values(prActivity).reduce((a, b) => a + b, 0);
 
-const colors = ['rgba(255,255,255,0.06)', '#0e4429', '#26a641', '#39d353'];
+// Window derives from the data, not a hardcoded anchor. End = last activity
+// rolled forward to Saturday; the view then extends back far enough to cover the
+// first activity, with a 14-week floor so short streaks don't render as a stub.
+const DAY = 24 * 60 * 60 * 1000;
+const end = new Date(`${dates[dates.length - 1]}T00:00:00Z`);
+end.setUTCDate(end.getUTCDate() + (6 - end.getUTCDay()));
+
+const firstSunday = new Date(`${dates[0]}T00:00:00Z`);
+firstSunday.setUTCDate(firstSunday.getUTCDate() - firstSunday.getUTCDay());
+
+const WEEKS = Math.max(14, (end.getTime() - firstSunday.getTime()) / (7 * DAY) + 1);
+
+const start = new Date(end);
+start.setUTCDate(start.getUTCDate() - (WEEKS * 7 - 1));
+
+// e.g. "Jun–Jul 2026", or "Jul 2026" when it all falls in one month.
+const fmt = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-US', {
+    month: 'short',
+    timeZone: 'UTC',
+  });
+const firstMonth = fmt(dates[0]);
+const lastMonth = fmt(dates[dates.length - 1]);
+const year = dates[dates.length - 1].slice(0, 4);
+const period =
+  firstMonth === lastMonth
+    ? `${firstMonth} ${year}`
+    : `${firstMonth}–${lastMonth} ${year}`;
+
+// Neutral grey for empty days reads on both themes; white at 6% vanished on light.
+const colors = ['rgba(127,127,127,0.18)', '#0e4429', '#26a641', '#39d353'];
 const levelFor = (count: number): number =>
   count <= 0 ? 0 : count === 1 ? 1 : count === 2 ? 2 : 3;
 
@@ -51,7 +67,7 @@ const height = 7 * STEP - GAP;
     width={width}
     height={height}
     role="img"
-    aria-label={`${total} pull requests to commonwealth-ga-server in July 2026`}
+    aria-label={`${total} pull requests to commonwealth-ga-server, ${period}`}
   >
     {cells.map((c) => (
       <rect x={c.x} y={c.y} width={CELL} height={CELL} rx="2" ry="2" fill={colors[c.level]}>
@@ -59,7 +75,7 @@ const height = 7 * STEP - GAP;
       </rect>
     ))}
   </svg>
-  <figcaption>{total} pull requests · Jul 2026</figcaption>
+  <figcaption>{total} pull requests · {period}</figcaption>
 </figure>
 
 <style>
@@ -77,6 +93,9 @@ const height = 7 * STEP - GAP;
   .contrib figcaption {
     font-size: 0.72rem;
     letter-spacing: 0.02em;
-    color: #9aa4b2;
+    color: #475569;
+  }
+  :global(.dark) .contrib figcaption {
+    color: #94a3b8;
   }
 </style>

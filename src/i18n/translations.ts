@@ -20,10 +20,10 @@ export const translations = {
     // About Section
     "about.title": "Acerca de mí",
     "about.description":
-      "Soy un desarrollador full stack con más de 3 años de experiencia creando aplicaciones web modernas. Me especializo en JavaScript, TypeScript, React, Node.js y tecnologías cloud.",
+      "Soy un desarrollador full stack con más de 3 años de experiencia creando aplicaciones web modernas. Me especializo en JavaScript, TypeScript, React y Node.js.",
     "about.experience": "Años de experiencia",
-    "about.projects": "Proyectos completados",
-    "about.technologies": "Tecnologías dominadas",
+    "about.merged": "PRs fusionados en open source",
+    "about.technologies": "Tecnologías utilizadas",
 
     // Skills
     "skills.frontend": "Frontend",
@@ -79,10 +79,10 @@ export const translations = {
     // About Section
     "about.title": "About me",
     "about.description":
-      "I'm a full stack developer with over 3 years of experience building modern web applications. I specialize in JavaScript, TypeScript, React, Node.js and cloud technologies.",
+      "I'm a full stack developer with over 3 years of experience building modern web applications. I specialize in JavaScript, TypeScript, React and Node.js.",
     "about.experience": "Years of experience",
-    "about.projects": "Completed projects",
-    "about.technologies": "Technologies mastered",
+    "about.merged": "Open-source PRs merged",
+    "about.technologies": "Technologies used",
 
     // Skills
     "skills.frontend": "Frontend",
