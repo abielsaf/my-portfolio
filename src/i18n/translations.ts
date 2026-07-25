@@ -62,6 +62,7 @@ export const translations = {
     "contact.modal.ok": "OK",
     "contact.modal.successText":
       "Gracias por contactarme. Te responderé lo antes posible.",
+    "contact.captcha.required": "Por favor, completa el captcha.",
 
     // Footer
     "footer.rights": "Todos los derechos reservados",
@@ -121,6 +122,7 @@ export const translations = {
     "contact.modal.ok": "OK",
     "contact.modal.successText":
       "Thanks for reaching out! I’ll get back to you shortly.",
+    "contact.captcha.required": "Please complete the captcha.",
 
     // Footer
     "footer.rights": "All rights reserved",

@@ -247,6 +247,10 @@
   @apply block text-sm font-medium text-dark-900 dark:text-gray-300 mb-2;
 }
 
+.contact-error {
+  @apply text-sm font-medium text-red-600 dark:text-red-400;
+}
+
 /* v4's @apply only takes real utilities, not custom classes — so .contact-textarea
    shares the selector instead of @apply-ing .contact-input. */
 .contact-input,

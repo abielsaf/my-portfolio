@@ -8,25 +8,59 @@ import { ThemeScript } from "astro-theme-toggle";
 import '../styles/base.css';
 import Analytics from '@vercel/analytics/astro';
 
+const description =
+  lang === "es"
+    ? "Portfolio de Ángel Bielsa — Desarrollador Full Stack en Madrid, especializado en React, TypeScript, Python y Astro."
+    : "Ángel Bielsa Portfolio — Full Stack Developer based in Madrid, specialized in React, TypeScript, Python and Astro.";
 
+// Both locales are hand-authored routes: es at /, en at /en/.
+const pathFor = { es: "/", en: "/en/" } as const;
+const canonical = new URL(pathFor[lang], Astro.site);
+const ogImage = new URL("/og.png", Astro.site);
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Ángel Bielsa",
+  url: Astro.site?.href,
+  image: ogImage.href,
+  jobTitle: lang === "es" ? "Desarrollador Full Stack" : "Full Stack Developer",
+  email: "mailto:bielsafuentes@gmail.com",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Madrid",
+    addressCountry: "ES",
+  },
+  knowsLanguage: ["es", "en"],
+  sameAs: [
+    "https://github.com/abielsaf",
+    "https://www.linkedin.com/in/angelbielsa/",
+  ],
+  knowsAbout: [
+    "React", "TypeScript", "JavaScript", "Astro", "Tailwind CSS",
+    "Python", "Node.js", "Flask", "PostgreSQL",
+  ],
+};
 ---
 
 <!doctype html>
 <html lang={lang}>
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="description"
-      content={lang === "es"
-        ? "Portfolio de Ángel Bielsa - Desarrollador Full Stack especializado en React, Python y tecnologías modernas"
-        : "Ángel Bielsa Portfolio - Full Stack Developer specialized in React, Python and modern technologies"}
-    />
+    <meta name="description" content={description} />
+    <meta name="author" content="Ángel Bielsa" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
     <title>{title}</title>
     <ThemeScript />
 
+    <!-- Canonical + language alternates -->
+    <link rel="canonical" href={canonical.href} />
+    <link rel="alternate" hreflang="es" href={new URL("/", Astro.site).href} />
+    <link rel="alternate" hreflang="en" href={new URL("/en/", Astro.site).href} />
+    <link rel="alternate" hreflang="x-default" href={new URL("/", Astro.site).href} />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -38,22 +72,34 @@ import Analytics from '@vercel/analytics/astro';
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
-    <meta
-      property="og:description"
-      content={lang === "es"
-        ? "Portfolio de Ángel Bielsa - Desarrollador Full Stack"
-        : "JÁngel Bielsa Portfolio - Full Stack Developer"}
-    />
+    <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:site_name" content="Ángel Bielsa" />
+    <meta property="og:locale" content={lang === "es" ? "es_ES" : "en_US"} />
+    <meta
+      property="og:locale:alternate"
+      content={lang === "es" ? "en_US" : "es_ES"}
+    />
+    <meta property="og:image" content={ogImage.href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content={lang === "es"
+        ? "Ángel Bielsa — Desarrollador Full Stack"
+        : "Ángel Bielsa — Full Stack Developer"}
+    />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
-    <meta
-      name="twitter:description"
-      content={lang === "es"
-        ? "Portfolio de Ángel Bielsa - Desarrollador Full Stack"
-        : "Ángel Bielsa Portfolio - Full Stack Developer"}
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage.href} />
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(personSchema)}
     />
   </head>
   <body class="antialiased transition-colors duration-300">
