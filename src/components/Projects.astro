@@ -40,9 +40,9 @@ const projects: Project[] = [
       ? 'Juego incremental/idle sobre construir un imperio de cómputo de IA: desde una Raspberry Pi en una caja de zapatos hasta un enjambre Dyson que cosecha una estrella. Genera FLOPS, véndelos por dinero, reinvierte en hardware más potente, controla el calor y asciende mediante Reinicios de Singularidad.'
       : 'Incremental/idle game about bootstrapping an AI compute empire — from a Raspberry Pi in a shoebox to a Dyson swarm harvesting a star. Generate FLOPS, sell them for money, reinvest in bigger hardware, fight the heat, and ascend through Singularity Resets.',
     tech: ['React 19', 'Zustand', 'Vite', 'Tailwind CSS'],
+    // Repo is private — live link only.
     links: [
       { label: lang === 'es' ? 'Ver proyecto' : 'View project', url: 'https://ai-tycoon-wheat.vercel.app/', primary: true },
-      { label: lang === 'es' ? 'Ver código' : 'View code', url: 'https://github.com/abielsaf/AI-Tycoon', primary: false },
     ],
   },
   {
@@ -128,7 +128,7 @@ const statusLabels: Record<Status, string> = {
           </div>
 
           <!-- Content -->
-          <div class="p-6">
+          <div class="p-6 flex flex-col flex-1">
             <h3 class="project-title">{project.title}</h3>
             <p class="project-description">{project.description}</p>
 
@@ -136,8 +136,9 @@ const statusLabels: Record<Status, string> = {
               <p class="project-role">{project.role}</p>
             )}
 
-            <!-- Technologies -->
-            <div class="flex flex-wrap gap-2 mb-6">
+            <!-- Technologies — mt-auto here (not on the links row) pushes the tech
+                 pills AND the buttons below them to the card bottom together -->
+            <div class="flex flex-wrap gap-2 mb-6 mt-auto">
               {project.tech.map(tech => (
                 <span class="project-tech">{tech}</span>
               ))}

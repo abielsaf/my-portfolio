@@ -1,5 +1,7 @@
+import MicroModal from "micromodal";
+
 document.addEventListener("DOMContentLoaded", () => {
-    window.MicroModal.init({
+    MicroModal.init({
       awaitOpenAnimation: true,
       awaitCloseAnimation: true,
       disableScroll: true,
@@ -33,11 +35,11 @@ document.addEventListener("DOMContentLoaded", () => {
             messageEl.textContent = form.dataset.successText || "";
           }
           modal?.classList.remove("hidden");
-          window.MicroModal.show("feedback-modal");
+          MicroModal.show("feedback-modal");
           form.reset();
   
           setTimeout(() => {
-            window.MicroModal.close("feedback-modal");
+            MicroModal.close("feedback-modal");
             modal?.classList.add("hidden");
           }, 4000);
         } else {
@@ -49,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
           messageEl.textContent = form.dataset.errorText || "";
         }
         modal?.classList.remove("hidden");
-        window.MicroModal.show("feedback-modal");
+        MicroModal.show("feedback-modal");
       }
     });
   
