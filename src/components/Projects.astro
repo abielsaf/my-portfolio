@@ -1,6 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import { useTranslations } from '../i18n/utils';
 import ContributionGraph from './ContributionGraph.astro';
+import aiTycoonImage from '../assets/ai-tycoon.png';
 
 export interface Props {
   lang: 'es' | 'en';
@@ -21,7 +23,7 @@ interface Project {
   title: string;
   status: Status;
   icon: string;
-  image: string | null;
+  image: ImageMetadata | null;
   description: string;
   role?: string;
   tech: string[];
@@ -33,9 +35,7 @@ const projects: Project[] = [
     title: 'AI Tycoon',
     status: 'live',
     icon: '🖥️',
-    // Drop a screenshot at /public/projects/ai-tycoon.png to show it here.
-    // If the file is missing, the icon placeholder is shown instead.
-    image: '/projects/ai-tycoon.png',
+    image: aiTycoonImage,
     description: lang === 'es'
       ? 'Juego incremental/idle sobre construir un imperio de cómputo de IA: desde una Raspberry Pi en una caja de zapatos hasta un enjambre Dyson que cosecha una estrella. Genera FLOPS, véndelos por dinero, reinvierte en hardware más potente, controla el calor y asciende mediante Reinicios de Singularidad.'
       : 'Incremental/idle game about bootstrapping an AI compute empire — from a Raspberry Pi in a shoebox to a Dyson swarm harvesting a star. Generate FLOPS, sell them for money, reinvest in bigger hardware, fight the heat, and ascend through Singularity Resets.',
@@ -111,17 +111,14 @@ const statusLabels: Record<Status, string> = {
                 <span class="project-soon-text">{lang === 'es' ? 'Próximamente' : 'Coming soon'}</span>
               </div>
             ) : project.image ? (
-              <Fragment>
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  class="project-image"
-                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                />
-                <div class="project-placeholder" style="display:none">
-                  <span>{project.icon}</span>
-                </div>
-              </Fragment>
+              <Image
+                src={project.image}
+                alt={project.title}
+                width={800}
+                format="webp"
+                loading="lazy"
+                class="project-image"
+              />
             ) : (
               <div class="project-placeholder">
                 <span>{project.icon}</span>
@@ -203,6 +200,13 @@ const statusLabels: Record<Status, string> = {
     background: rgba(139, 92, 246, 0.15);
     color: #a78bfa;
     border-color: rgba(167, 139, 250, 0.4);
+  }
+
+  .project-image {
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
+    object-position: top;
   }
 
   .project-placeholder {
