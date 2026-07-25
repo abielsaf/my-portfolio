@@ -12,8 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const titleEl = document.getElementById("modal-title");
     const messageEl = document.getElementById("modal-message");
     const closeBtn = document.querySelector('[data-micromodal-close]');
-    const lang = document.documentElement.lang || "es";
-  
+
     if (modal) {
       modal.classList.add("hidden");
       modal.setAttribute("aria-hidden", "true");
