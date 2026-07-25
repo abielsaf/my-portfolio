@@ -42,7 +42,6 @@ export const translations = {
       "Proyectos seleccionados y contribuciones open source",
     "projects.view": "Ver proyecto",
     "projects.code": "Ver código",
-    "projects.wip": "Estamos trabajando en ello",
 
     // Contact Section
     "contact.title": "Contacto",
@@ -102,7 +101,6 @@ export const translations = {
     "projects.description": "Selected projects and open-source contributions",
     "projects.view": "View project",
     "projects.code": "View code",
-    "projects.wip": "Work in progress",
 
     // Contact Section
     "contact.title": "Contact",
