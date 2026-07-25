@@ -1,0 +1,82 @@
+---
+// Real contribution heatmap built from Ángel's pull requests to
+// commonwealthga/commonwealth-ga-server (opened dates, July 2026).
+// Baked in at build time — no runtime/API dependency.
+const prActivity: Record<string, number> = {
+  '2026-07-13': 1,
+  '2026-07-17': 2,
+  '2026-07-18': 3,
+  '2026-07-19': 2,
+  '2026-07-20': 3,
+  '2026-07-23': 3,
+  '2026-07-24': 2,
+};
+
+const WEEKS = 16;
+const CELL = 11;
+const GAP = 3;
+const STEP = CELL + GAP;
+
+// Anchor the window to the contribution period, using Sun–Sat weeks.
+const end = new Date(Date.UTC(2026, 6, 25)); // 2026-07-25
+end.setUTCDate(end.getUTCDate() + (6 - end.getUTCDay())); // roll to Saturday
+const start = new Date(end);
+start.setUTCDate(start.getUTCDate() - (WEEKS * 7 - 1)); // first Sunday in view
+
+const total = Object.values(prActivity).reduce((a, b) => a + b, 0);
+
+const colors = ['rgba(255,255,255,0.06)', '#0e4429', '#26a641', '#39d353'];
+const levelFor = (count: number): number =>
+  count <= 0 ? 0 : count === 1 ? 1 : count === 2 ? 2 : 3;
+
+type Cell = { x: number; y: number; level: number; date: string; count: number };
+const cells: Cell[] = [];
+const cursor = new Date(start);
+for (let w = 0; w < WEEKS; w++) {
+  for (let d = 0; d < 7; d++) {
+    const iso = cursor.toISOString().slice(0, 10);
+    const count = prActivity[iso] ?? 0;
+    cells.push({ x: w * STEP, y: d * STEP, level: levelFor(count), date: iso, count });
+    cursor.setUTCDate(cursor.getUTCDate() + 1);
+  }
+}
+
+const width = WEEKS * STEP - GAP;
+const height = 7 * STEP - GAP;
+---
+
+<figure class="contrib">
+  <svg
+    viewBox={`0 0 ${width} ${height}`}
+    width={width}
+    height={height}
+    role="img"
+    aria-label={`${total} pull requests to commonwealth-ga-server in July 2026`}
+  >
+    {cells.map((c) => (
+      <rect x={c.x} y={c.y} width={CELL} height={CELL} rx="2" ry="2" fill={colors[c.level]}>
+        {c.count > 0 && <title>{`${c.count} PR${c.count > 1 ? 's' : ''} · ${c.date}`}</title>}
+      </rect>
+    ))}
+  </svg>
+  <figcaption>{total} pull requests · Jul 2026</figcaption>
+</figure>
+
+<style>
+  .contrib {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+  }
+  .contrib svg {
+    max-width: 90%;
+    height: auto;
+  }
+  .contrib figcaption {
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    color: #9aa4b2;
+  }
+</style>

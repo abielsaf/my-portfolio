@@ -1,5 +1,6 @@
 ---
 import { useTranslations } from '../i18n/utils';
+import ContributionGraph from './ContributionGraph.astro';
 
 export interface Props {
   lang: 'es' | 'en';
@@ -8,45 +9,83 @@ export interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const projects = [
+type Status = 'live' | 'soon' | 'contribution';
+
+interface ProjectLink {
+  label: string;
+  url: string;
+  primary: boolean;
+}
+
+interface Project {
+  title: string;
+  status: Status;
+  icon: string;
+  image: string | null;
+  description: string;
+  role?: string;
+  tech: string[];
+  links: ProjectLink[];
+}
+
+const projects: Project[] = [
   {
-    title: 'E-commerce Platform',
-    description: lang === 'es' 
-      ? 'Plataforma de comercio electrónico completa con React, Node.js y PostgreSQL. Incluye carrito de compras, procesamiento de pagos y panel de administración.'
-      : 'Complete e-commerce platform with React, Node.js and PostgreSQL. Includes shopping cart, payment processing and admin panel.',
-    image: 'https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=600',
-    technologies: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
-    github: 'https://github.com',
-    demo: 'https://demo.com'
+    title: 'AI Tycoon',
+    status: 'live',
+    icon: '🖥️',
+    // Drop a screenshot at /public/projects/ai-tycoon.png to show it here.
+    // If the file is missing, the icon placeholder is shown instead.
+    image: '/projects/ai-tycoon.png',
+    description: lang === 'es'
+      ? 'Juego incremental/idle sobre construir un imperio de cómputo de IA: desde una Raspberry Pi en una caja de zapatos hasta un enjambre Dyson que cosecha una estrella. Genera FLOPS, véndelos por dinero, reinvierte en hardware más potente, controla el calor y asciende mediante Reinicios de Singularidad.'
+      : 'Incremental/idle game about bootstrapping an AI compute empire — from a Raspberry Pi in a shoebox to a Dyson swarm harvesting a star. Generate FLOPS, sell them for money, reinvest in bigger hardware, fight the heat, and ascend through Singularity Resets.',
+    tech: ['React 19', 'Zustand', 'Vite', 'Tailwind CSS'],
+    links: [
+      { label: lang === 'es' ? 'Ver proyecto' : 'View project', url: 'https://ai-tycoon-wheat.vercel.app/', primary: true },
+      { label: lang === 'es' ? 'Ver código' : 'View code', url: 'https://github.com/abielsaf/AI-Tycoon', primary: false },
+    ],
   },
   {
-    title: 'Task Management App',
+    title: 'Vr33s Portfolio',
+    status: 'soon',
+    icon: '🧑‍💻',
+    // No image yet — shows a "Coming soon" tile. Swap in a screenshot once the site is live.
+    image: null,
     description: lang === 'es'
-      ? 'Aplicación de gestión de tareas colaborativa con autenticación, asignación de tareas y seguimiento en tiempo real.'
-      : 'Collaborative task management application with authentication, task assignment and real-time tracking.',
-    image: 'https://images.pexels.com/photos/3194521/pexels-photo-3194521.jpeg?auto=compress&cs=tinysrgb&w=600',
-    technologies: ['Next.js', 'TypeScript', 'MongoDB', 'Socket.io'],
-    github: 'https://github.com',
-    demo: 'https://demo.com'
+      ? 'Sitio de portafolio personal construido con Astro y TypeScript. Actualmente en desarrollo — se publicará pronto.'
+      : 'Personal portfolio site built with Astro and TypeScript. Currently in development — launching soon.',
+    tech: ['Astro', 'TypeScript'],
+    links: [
+      { label: lang === 'es' ? 'Ver código' : 'View code', url: 'https://github.com/abielsaf/Vr33s-Portfolio', primary: false },
+    ],
   },
   {
-    title: 'Weather Dashboard',
+    title: 'Global Agenda Server',
+    status: 'contribution',
+    icon: '🎮',
+    image: null,
     description: lang === 'es'
-      ? 'Dashboard del clima con visualización de datos en tiempo real, pronósticos y mapas interactivos usando APIs externas.'
-      : 'Weather dashboard with real-time data visualization, forecasts and interactive maps using external APIs.',
-    image: 'https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?auto=compress&cs=tinysrgb&w=600',
-    technologies: ['Vue.js', 'Chart.js', 'OpenWeather API', 'Tailwind CSS'],
-    github: 'https://github.com',
-    demo: 'https://demo.com'
-  }
+      ? 'Proyecto open source para revivir Global Agenda, un juego de Hi-Rez cuyos servidores oficiales fueron cerrados. Una reimplementación del servidor hecha por la comunidad que devuelve el juego a la vida.'
+      : 'Open-source effort to revive Global Agenda, a Hi-Rez game whose official servers were shut down. A community server reimplementation that brings the game back online.',
+    role: lang === 'es'
+      ? 'Contribuidor — sistema de chat, lista de amigos, susurros (/w), Agencias y Alianzas, además de correcciones de jugabilidad.'
+      : 'Contributor — chat system, friends list, whisper (/w), Agencies & Alliances, plus gameplay bug fixes.',
+    tech: ['C / C++', 'Game server RE', 'TCP/UDP networking'],
+    links: [
+      { label: lang === 'es' ? 'Mis PRs' : 'My PRs', url: 'https://github.com/commonwealthga/commonwealth-ga-server/pulls?q=is%3Apr+author%3Aabielsaf', primary: true },
+      { label: lang === 'es' ? 'Repo original' : 'Original repo', url: 'https://github.com/commonwealthga/commonwealth-ga-server', primary: false },
+    ],
+  },
 ];
+
+const statusLabels: Record<Status, string> = {
+  live: lang === 'es' ? 'En vivo' : 'Live',
+  soon: lang === 'es' ? 'Próximamente' : 'Coming soon',
+  contribution: 'Open source',
+};
 ---
 
 <section id="projects" class="projects-section relative">
-  <div class="projects-wip-overlay">
-    <p class="projects-wip-text">{t('projects.wip')}</p>
-  </div>
-
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16">
       <h2 class="projects-heading">{t('projects.title')}</h2>
@@ -56,33 +95,69 @@ const projects = [
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {projects.map((project, index) => (
-        <div class="group project-card" style={`animation-delay: ${index * 0.2}s;`} >
-          <!-- Project Image -->
-          <div class="relative overflow-hidden">
-            <img src={project.image} alt={project.title} class="project-image" />
+        <div class="group project-card" style={`animation-delay: ${index * 0.2}s;`}>
+          <!-- Media + status badge -->
+          <div class="relative overflow-hidden project-media">
+            <span class={`status-badge ${project.status}`}>
+              <span class="dot"></span>{statusLabels[project.status]}
+            </span>
+
+            {project.status === 'contribution' ? (
+              <div class="project-graph">
+                <ContributionGraph />
+              </div>
+            ) : project.status === 'soon' ? (
+              <div class="project-soon">
+                <span class="project-soon-text">{lang === 'es' ? 'Próximamente' : 'Coming soon'}</span>
+              </div>
+            ) : project.image ? (
+              <Fragment>
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  class="project-image"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                />
+                <div class="project-placeholder" style="display:none">
+                  <span>{project.icon}</span>
+                </div>
+              </Fragment>
+            ) : (
+              <div class="project-placeholder">
+                <span>{project.icon}</span>
+              </div>
+            )}
             <div class="project-overlay"></div>
           </div>
 
-          <!-- Project Content -->
+          <!-- Content -->
           <div class="p-6">
             <h3 class="project-title">{project.title}</h3>
             <p class="project-description">{project.description}</p>
 
+            {project.role && (
+              <p class="project-role">{project.role}</p>
+            )}
+
             <!-- Technologies -->
             <div class="flex flex-wrap gap-2 mb-6">
-              {project.technologies.map(tech => (
+              {project.tech.map(tech => (
                 <span class="project-tech">{tech}</span>
               ))}
             </div>
 
-            <!-- Project Links -->
+            <!-- Links -->
             <div class="flex gap-3">
-              <a href={project.demo} target="_blank" rel="noopener noreferrer" class="project-demo">
-                {t('projects.view')}
-              </a>
-              <a href={project.github} target="_blank" rel="noopener noreferrer" class="project-code">
-                {t('projects.code')}
-              </a>
+              {project.links.map(link => (
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class={link.primary ? 'project-demo' : 'project-code'}
+                >
+                  {link.label}
+                </a>
+              ))}
             </div>
           </div>
         </div>
@@ -91,3 +166,93 @@ const projects = [
   </div>
 </section>
 
+<style>
+  .status-badge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 2;
+    padding: 0.25rem 0.7rem;
+    border-radius: 9999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    backdrop-filter: blur(4px);
+    border: 1px solid transparent;
+  }
+  .status-badge .dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: middle;
+    background: currentColor;
+  }
+  .status-badge.live {
+    background: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    border-color: rgba(74, 222, 128, 0.4);
+  }
+  .status-badge.soon {
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    border-color: rgba(251, 191, 36, 0.4);
+  }
+  .status-badge.contribution {
+    background: rgba(139, 92, 246, 0.15);
+    color: #a78bfa;
+    border-color: rgba(167, 139, 250, 0.4);
+  }
+
+  .project-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 12rem;
+    font-size: 3.5rem;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(139, 92, 246, 0.12));
+  }
+
+  .project-graph {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 12rem;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(139, 92, 246, 0.12));
+  }
+
+  .project-soon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 12rem;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.10), rgba(139, 92, 246, 0.10));
+  }
+  .project-soon-text {
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #fbbf24;
+    animation: soonPulse 2.4s ease-in-out infinite;
+  }
+  @keyframes soonPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.9; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .project-soon-text { animation: none; opacity: 0.75; }
+  }
+
+  .project-role {
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: #a78bfa;
+    margin: -0.25rem 0 0.9rem;
+  }
+</style>

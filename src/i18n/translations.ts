@@ -10,7 +10,7 @@ export const translations = {
     // Navigation
     "nav.home": "Inicio",
     "nav.about": "Acerca de",
-    "nav.projects": "Proyectos",
+    "nav.projects": "Trabajos",
     "nav.contact": "Contacto",
 
     // Hero Section
@@ -37,9 +37,9 @@ export const translations = {
     "skills.languages.es": "Español",
     "skills.languages.en": "Inglés",
     // Projects Section
-    "projects.title": "Mis Proyectos",
+    "projects.title": "Trabajos",
     "projects.description":
-      "Algunos de los proyectos en los que he trabajado recientemente",
+      "Proyectos seleccionados y contribuciones open source",
     "projects.view": "Ver proyecto",
     "projects.code": "Ver código",
     "projects.wip": "Estamos trabajando en ello",
@@ -71,7 +71,7 @@ export const translations = {
     // Navigation
     "nav.home": "Home",
     "nav.about": "About",
-    "nav.projects": "Projects",
+    "nav.projects": "Work",
     "nav.contact": "Contact",
 
     // Hero Section
@@ -98,8 +98,8 @@ export const translations = {
     "skills.languages.es": "Spanish",
     "skills.languages.en": "English",
     // Projects Section
-    "projects.title": "My Projects",
-    "projects.description": "Some of the projects I've worked on recently",
+    "projects.title": "My Work",
+    "projects.description": "Selected projects and open-source contributions",
     "projects.view": "View project",
     "projects.code": "View code",
     "projects.wip": "Work in progress",
