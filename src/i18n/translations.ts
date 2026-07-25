@@ -1,8 +1,3 @@
-export const languages = {
-  es: "Español",
-  en: "English",
-};
-
 export const defaultLang = "es";
 
 export const translations = {
@@ -12,6 +7,7 @@ export const translations = {
     "nav.about": "Acerca de",
     "nav.projects": "Trabajos",
     "nav.contact": "Contacto",
+    "nav.openMenu": "Abrir menú principal",
 
     // Hero Section
     "hero.greeting": "¡Hola! Soy",
@@ -40,8 +36,6 @@ export const translations = {
     "projects.title": "Trabajos",
     "projects.description":
       "Proyectos seleccionados y contribuciones open source",
-    "projects.view": "Ver proyecto",
-    "projects.code": "Ver código",
 
     // Contact Section
     "contact.title": "Contacto",
@@ -50,8 +44,8 @@ export const translations = {
     "contact.email": "Email",
     "contact.message": "Mensaje",
     "contact.send": "Enviar mensaje",
-    "contact.success": "Mensaje enviado correctamente",
     "contact.find": "Encuéntrame en:",
+    "contact.location": "Ubicación",
     "contact.placeholder.name": "Tu nombre",
     "contact.placeholder.email": "tu@email.com",
     "contact.placeholder.message": "Tu mensaje...",
@@ -59,7 +53,6 @@ export const translations = {
     "contact.modal.errorTitle": "Ocurrió un error",
     "contact.modal.errorText":
       "No se pudo enviar tu mensaje. Inténtalo más tarde.",
-    "contact.modal.ok": "OK",
     "contact.modal.successText":
       "Gracias por contactarme. Te responderé lo antes posible.",
     "contact.captcha.required": "Por favor, completa el captcha.",
@@ -73,6 +66,7 @@ export const translations = {
     "nav.about": "About",
     "nav.projects": "Work",
     "nav.contact": "Contact",
+    "nav.openMenu": "Open main menu",
 
     // Hero Section
     "hero.greeting": "Hi! I'm",
@@ -100,8 +94,6 @@ export const translations = {
     // Projects Section
     "projects.title": "My Work",
     "projects.description": "Selected projects and open-source contributions",
-    "projects.view": "View project",
-    "projects.code": "View code",
 
     // Contact Section
     "contact.title": "Contact",
@@ -110,8 +102,8 @@ export const translations = {
     "contact.email": "Email",
     "contact.message": "Message",
     "contact.send": "Send message",
-    "contact.success": "Message sent successfully",
     "contact.find": "Find me on:",
+    "contact.location": "Location",
     "contact.placeholder.name": "Your name",
     "contact.placeholder.email": "your@email.com",
     "contact.placeholder.message": "Your message...",
@@ -119,7 +111,6 @@ export const translations = {
     "contact.modal.errorTitle": "Something went wrong",
     "contact.modal.errorText":
       "Your message could not be sent. Please try again later.",
-    "contact.modal.ok": "OK",
     "contact.modal.successText":
       "Thanks for reaching out! I’ll get back to you shortly.",
     "contact.captcha.required": "Please complete the captcha.",

@@ -67,7 +67,7 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY;
             </svg>
           </div>
           <div>
-            <h3 class="contact-info-title">Ubicación</h3>
+            <h3 class="contact-info-title">{t("contact.location")}</h3>
             <p class="contact-info-text">Madrid, España</p>
           </div>
         </div>
@@ -231,6 +231,7 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY;
           class="h-captcha"
           data-captcha="true"
           data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
+          data-hl={lang}
         >
         </div>
         <p id="captcha-error" class="contact-error hidden" role="alert">

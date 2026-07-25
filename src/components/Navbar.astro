@@ -31,7 +31,7 @@ const t = useTranslations(lang);
 
       <!-- Theme Toggle and Language Toggle -->
       <div class="flex items-center space-x-4">
-        <LanguageToggle />
+        <LanguageToggle lang={lang} />
         <Toggle
           style="width: 32px; height: 32px;"
           class="cursor-pointer rounded hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
@@ -46,7 +46,7 @@ const t = useTranslations(lang);
             aria-controls="mobile-menu"
             aria-expanded="false"
           >
-            <span class="sr-only">Abrir menú principal</span>
+            <span class="sr-only">{t("nav.openMenu")}</span>
             <svg
               class="block h-6 w-6"
               fill="none"

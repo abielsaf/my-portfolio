@@ -6,63 +6,59 @@ const { lang } = Astro.props;
 ---
 
 <div class="relative inline-block text-left">
-  <div>
-    <button
-      id="language-menu-button"
-      type="button"
-      class="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold
-             bg-gray-100 text-gray-800 hover:bg-gray-200
-             dark:bg-white/5 dark:text-white dark:hover:bg-white/10
-             shadow-xs ring-1 ring-inset ring-gray-300 dark:ring-white/10
-             transition-colors"
-      aria-expanded="true"
-      aria-haspopup="true"
+  <button
+    id="language-menu-button"
+    type="button"
+    class="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold
+           bg-gray-100 text-gray-800 hover:bg-gray-200
+           dark:bg-white/5 dark:text-white dark:hover:bg-white/10
+           shadow-xs ring-1 ring-inset ring-gray-300 dark:ring-white/10
+           transition-colors"
+    aria-expanded="false"
+    aria-controls="language-menu"
+  >
+    <!-- Rendered at build time from the page's own lang — no JS, no flash of
+         empty label on first paint. -->
+    {lang === "en" ? "EN" : "ES"}
+    <svg
+      class="-mr-1 h-5 w-5 text-gray-500 dark:text-gray-400"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      aria-hidden="true"
     >
-      <span id="current-lang"></span>
-      <svg
-        class="-mr-1 h-5 w-5 text-gray-500 dark:text-gray-400"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-        aria-hidden="true"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-          clip-rule="evenodd"></path>
-      </svg>
-    </button>
-  </div>
+      <path
+        fill-rule="evenodd"
+        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </button>
 
   <div
     id="language-menu"
     class="absolute right-0 z-10 mt-2 w-24 origin-top-right rounded-md
            bg-white dark:bg-dark-800
-           shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden
+           shadow-lg ring-1 ring-black ring-opacity-5 hidden
            transition-colors"
-    role="menu"
-    aria-orientation="vertical"
-    aria-labelledby="language-menu-button"
-    tabindex="-1"
   >
-    <div class="py-1" role="none">
+    <div class="py-1">
       <a
         href="/"
         class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100
                dark:text-gray-300 dark:hover:bg-dark-700 dark:hover:text-white
                transition-colors"
-        role="menuitem"
-        tabindex="-1"
+        hreflang="es"
+        aria-current={lang === "es" ? "true" : undefined}
         data-lang="es"
       >
         Español
       </a>
       <a
-        href="/en"
+        href="/en/"
         class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100
                dark:text-gray-300 dark:hover:bg-dark-700 dark:hover:text-white
                transition-colors"
-        role="menuitem"
-        tabindex="-1"
+        hreflang="en"
+        aria-current={lang === "en" ? "true" : undefined}
         data-lang="en"
       >
         English
@@ -75,40 +71,39 @@ const { lang } = Astro.props;
   const button = document.getElementById("language-menu-button");
   const menu = document.getElementById("language-menu");
 
-  // Toggle dropdown visibility
+  function setOpen(open: boolean) {
+    menu?.classList.toggle("hidden", !open);
+    button?.setAttribute("aria-expanded", String(open));
+  }
+
   button?.addEventListener("click", () => {
-    menu?.classList.toggle("hidden");
+    setOpen(menu?.classList.contains("hidden") ?? false);
   });
 
-  // Close dropdown on outside click
   document.addEventListener("click", (e) => {
     const target = e.target;
     if (!(target instanceof Node)) return;
     if (button && menu && !button.contains(target) && !menu.contains(target)) {
-      menu.classList.add("hidden");
+      setOpen(false);
     }
   });
 
-  // Store scroll position before switching language
-  const langLinks = menu?.querySelectorAll("a[data-lang]");
-  langLinks?.forEach((link) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !menu?.classList.contains("hidden")) {
+      setOpen(false);
+      button?.focus();
+    }
+  });
 
-      const targetLang = link.getAttribute("data-lang");
-      const scrollY = window.scrollY;
-
-      // Save scroll position and animation state in sessionStorage
-      sessionStorage.setItem("langScrollY", scrollY.toString());
-      sessionStorage.setItem("disableAnimations", "true"); // 🔥 prevent flicker on switch
-
-      // Construct the language path
-      const href = targetLang === "en" ? "/en" : "/";
-      window.location.href = href;
+  // Carry scroll position across the language switch. The anchors keep their
+  // real hrefs so ctrl/middle-click still open a new tab normally.
+  menu?.querySelectorAll("a[data-lang]").forEach((link) => {
+    link.addEventListener("click", () => {
+      sessionStorage.setItem("langScrollY", window.scrollY.toString());
+      sessionStorage.setItem("disableAnimations", "true");
     });
   });
 
-  // On page load, restore scroll position if available
   window.addEventListener("DOMContentLoaded", () => {
     const savedY = sessionStorage.getItem("langScrollY");
     if (savedY) {
@@ -116,10 +111,4 @@ const { lang } = Astro.props;
       sessionStorage.removeItem("langScrollY");
     }
   });
-  const currentLang = document.getElementById("current-lang");
-  if (currentLang) {
-    currentLang.textContent = window.location.pathname.startsWith("/en")
-      ? "EN"
-      : "ES";
-  }
 </script>

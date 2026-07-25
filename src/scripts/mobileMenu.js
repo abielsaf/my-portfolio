@@ -6,6 +6,7 @@ export function initMobileMenu() {
 
   function openMenu() {
     mobileWrapper.classList.remove('hidden');
+    menuButton.setAttribute('aria-expanded', 'true');
     setTimeout(() => {
       document.addEventListener('click', handleOutsideClick);
     }, 0);
@@ -13,6 +14,7 @@ export function initMobileMenu() {
 
   function closeMenu() {
     mobileWrapper.classList.add('hidden');
+    menuButton.setAttribute('aria-expanded', 'false');
     document.removeEventListener('click', handleOutsideClick);
   }
 
@@ -31,6 +33,13 @@ export function initMobileMenu() {
 
   mobileWrapper.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !mobileWrapper.classList.contains('hidden')) {
+      closeMenu();
+      menuButton.focus();
+    }
   });
 }
 
