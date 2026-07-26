@@ -5,7 +5,7 @@
 //   curl -s "https://api.github.com/search/issues?q=is:pr+author:abielsaf+repo:commonwealthga/commonwealth-ga-server&per_page=100"
 // then group items by created_at[:10] for prActivity, and count the items whose
 // pull_request.merged_at is non-null for mergedPRs.
-// Last updated: 2026-07-25.
+// Last updated: 2026-07-26.
 
 /** PRs opened, keyed by UTC date. */
 export const prActivity: Record<string, number> = {
@@ -29,7 +29,8 @@ export const prActivity: Record<string, number> = {
   '2026-07-20': 3,
   '2026-07-23': 3,
   '2026-07-24': 2,
+  '2026-07-25': 2,
 };
 
-/** Of the 31 opened, how many actually landed. 2 closed unmerged, 1 still open. */
-export const mergedPRs = 28;
+/** Of the 33 opened, how many actually landed. 2 closed unmerged, 1 still open. */
+export const mergedPRs = 30;
